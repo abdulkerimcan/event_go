@@ -1,6 +1,7 @@
 import 'package:eventgo/features/register/cubit/register_cubit.dart';
 import 'package:eventgo/features/register/cubit/register_state.dart';
 import 'package:eventgo/product/widget/custom_clip.dart';
+import 'package:eventgo/product/widget/custom_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
@@ -24,18 +25,12 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit(const RegisterInitialState(),
-          emailController, passwordController, _formKey),
-      child: BlocConsumer<LoginCubit, RegisterState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return _buildScaffold(context, state);
-        },
-      ),
-    );
+        create: (context) => RegisterCubit(const RegisterInitialState(),
+            emailController, passwordController, _formKey),
+        child: _buildScaffold(context));
   }
 
-  Scaffold _buildScaffold(BuildContext context, RegisterState state) {
+  Scaffold _buildScaffold(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -77,7 +72,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     Padding(
                       padding: context.padding.onlyBottomLow,
-                      child: BlocConsumer<LoginCubit, RegisterState>(
+                      child: BlocConsumer<RegisterCubit, RegisterState>(
                         listener: (context, state) {},
                         builder: (context, state) {
                           if (state is RegisterLoadingState) {
@@ -182,31 +177,12 @@ class _RegisterViewState extends State<RegisterView> {
         decoration: _inputDecoration("Name*", "Enter your name"));
   }
 
-  Container _titleContainer(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      color: const Color(0xff5265FF),
-      height: context.sized.height * 0.2,
-      child: Center(child: _header()),
-    );
-  }
-
   Text _registerText(BuildContext context) {
     return Text("Register for free",
         style: Theme.of(context)
             .textTheme
             .headlineSmall
             ?.copyWith(fontWeight: FontWeight.bold, color: Colors.black));
-  }
-
-  Text _header() {
-    return Text(
-      "EventGO",
-      style: Theme.of(context)
-          .textTheme
-          .headlineLarge
-          ?.copyWith(color: Colors.white),
-    );
   }
 
   TextButton _signInButton(BuildContext context) {
@@ -226,8 +202,16 @@ class _RegisterViewState extends State<RegisterView> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _customContainer("assets/icons/ic_facebook.png", "Facebook"),
-        _customContainer("assets/icons/ic_google.png", "Google")
+        CustomContainer(
+          context: context,
+          imagePath: "assets/icons/ic_facebook.png",
+          title: "Facebook",
+        ),
+        CustomContainer(
+          context: context,
+          imagePath: "assets/icons/ic_google.png",
+          title: "Google",
+        ),
       ],
     );
   }
@@ -235,7 +219,7 @@ class _RegisterViewState extends State<RegisterView> {
   ElevatedButton _registerButton(BuildContext context) {
     return ElevatedButton(
         onPressed: () {
-          context.read<LoginCubit>().register();
+          context.read<RegisterCubit>().register();
         },
         child: Text(
           "Register",
@@ -244,34 +228,6 @@ class _RegisterViewState extends State<RegisterView> {
               .labelMedium
               ?.copyWith(color: Colors.white),
         ));
-  }
-
-  Container _customContainer(String iconPath, String label) {
-    return Container(
-      decoration: BoxDecoration(boxShadow: const [
-        BoxShadow(offset: Offset(-0.3, 0.2)),
-        BoxShadow(offset: Offset(0.1, 0.4))
-      ], color: Colors.white, borderRadius: BorderRadius.circular(20)),
-      width: context.sized.width * 0.4,
-      height: context.sized.height * 0.07,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Image.asset(
-            iconPath,
-            height: context.sized.mediumValue,
-            width: context.sized.mediumValue,
-          ),
-          Text(
-            label,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(color: Colors.black),
-          )
-        ],
-      ),
-    );
   }
 
   InputDecoration _inputDecoration(String labelText, String hintText) {

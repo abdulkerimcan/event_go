@@ -1,5 +1,11 @@
+import 'package:eventgo/features/login/cubit/login_cubit.dart';
+import 'package:eventgo/features/login/cubit/login_state.dart';
+import 'package:eventgo/product/widget/custom_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
+
+import '../../../product/widget/custom_clip.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -9,46 +15,75 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => LoginCubit(const LoginInitialState(),
+          _emailController, _passwordController, _formKey),
+      child: _buildScaffold(context),
+    );
+  }
+
+  Scaffold _buildScaffold(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: context.padding.normal,
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _header(context),
-            Column(
-              children: [
-                TextFormField(
-                    decoration: _inputDecoration("E-mail", "Enter your email")),
-                const SizedBox(
-                  height: 20,
+            CustomClipPath(
+              title: 'EventGO',
+              context: context,
+            ),
+            Padding(
+              padding: context.padding.normal,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: context.padding.onlyBottomLow,
+                      child: _loginText(context),
+                    ),
+                    Padding(
+                      padding: context.padding.onlyBottomLow,
+                      child: _emailTextForm(),
+                    ),
+                    Padding(
+                      padding: context.padding.onlyBottomLow,
+                      child: _passwordTextForm(),
+                    ),
+                    Padding(
+                        padding: context.padding.onlyBottomLow,
+                        child: BlocConsumer<LoginCubit, LoginState>(
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            if (state is LoginLoadingState) {
+                              return const CircularProgressIndicator();
+                            }
+                            return _loginButton(context);
+                          },
+                        )),
+                    const Divider(),
+                    Padding(
+                      padding: context.padding.onlyBottomLow,
+                      child: const Text("or continue with"),
+                    ),
+                    _loginContainersRow(),
+                  ],
                 ),
-                TextFormField(
-                  obscureText: true,
-                  decoration:
-                      _inputDecoration("Password", "Enter your password"),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                _loginButton(context),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Divider(),
-                _loginContainersRow(),
-              ],
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Already have an account?",
+                  "Do not you have an account?",
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
-                _signInButton(context)
+                _registerButton(context)
               ],
             )
           ],
@@ -57,21 +92,47 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Text _header(BuildContext context) {
-    return Text(
-      "EventGO",
-      style: Theme.of(context)
-          .textTheme
-          .headlineLarge
-          ?.copyWith(color: const Color(0xff5265FF)),
+  TextFormField _passwordTextForm() {
+    return TextFormField(
+      validator: (value) {
+        if (value != null && value.isEmpty) {
+          return "Cannot be empty";
+        } else if (value != null && value.length < 6) {
+          return "Cannot be less than 6 characters";
+        }
+        return null;
+      },
+      controller: _passwordController,
+      obscureText: true,
+      decoration: _inputDecoration("Password*", "Enter your password"),
     );
   }
 
-  TextButton _signInButton(BuildContext context) {
+  TextFormField _emailTextForm() {
+    return TextFormField(
+        validator: (value) {
+          if (value != null && !value.ext.isValidEmail) {
+            return "Invalid E-mail";
+          }
+          return null;
+        },
+        controller: _emailController,
+        decoration: _inputDecoration("E-mail*", "Enter your email"));
+  }
+
+  Text _loginText(BuildContext context) {
+    return Text("Log in Now",
+        style: Theme.of(context)
+            .textTheme
+            .headlineSmall
+            ?.copyWith(fontWeight: FontWeight.bold, color: Colors.black));
+  }
+
+  TextButton _registerButton(BuildContext context) {
     return TextButton(
       onPressed: () {},
       child: Text(
-        "Sign in",
+        "Register",
         style: Theme.of(context)
             .textTheme
             .titleLarge
@@ -84,15 +145,23 @@ class _LoginViewState extends State<LoginView> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _customContainer("assets/icons/ic_facebook.png", "Facebook"),
-        _customContainer("assets/icons/ic_google.png", "Google")
+        CustomContainer(
+          context: context,
+          imagePath: "assets/icons/ic_facebook.png",
+          title: "Facebook",
+        ),
+        CustomContainer(
+          context: context,
+          imagePath: "assets/icons/ic_google.png",
+          title: "Google",
+        ),
       ],
     );
   }
 
   ElevatedButton _loginButton(BuildContext context) {
     return ElevatedButton(
-        onPressed: () {},
+        onPressed: () => context.read<LoginCubit>().login(),
         child: Text(
           "Login",
           style: Theme.of(context)
@@ -100,34 +169,6 @@ class _LoginViewState extends State<LoginView> {
               .labelMedium
               ?.copyWith(color: Colors.white),
         ));
-  }
-
-  Container _customContainer(String iconPath, String label) {
-    return Container(
-      decoration: BoxDecoration(boxShadow: const [
-        BoxShadow(offset: Offset(-0.3, 0.2)),
-        BoxShadow(offset: Offset(0.1, 0.4))
-      ], color: Colors.white, borderRadius: BorderRadius.circular(20)),
-      width: context.sized.width * 0.4,
-      height: context.sized.height * 0.07,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Image.asset(
-            iconPath,
-            height: context.sized.mediumValue,
-            width: context.sized.mediumValue,
-          ),
-          Text(
-            label,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(color: Colors.black),
-          )
-        ],
-      ),
-    );
   }
 
   InputDecoration _inputDecoration(String labelText, String hintText) {
