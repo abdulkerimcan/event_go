@@ -1,10 +1,17 @@
 import 'package:eventgo/core/theme/app_theme.dart';
 import 'package:eventgo/features/login/view/login_view.dart';
 import 'package:eventgo/features/register/view/register_view.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "11016859741",
+    "project_id": "flutter-eventgo",
+    "storage_bucket": "flutter-eventgo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11016859741:android:0a5931901c0b7935125db4",
+        "android_client_info": {
+          "package_name": "com.example.eventgo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11016859741-l3031eepehff0p490a5c2v5ru5idhba1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_7-Y5DZDSD0tUZYvx-W1JY0fBxU_F3gY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11016859741-l3031eepehff0p490a5c2v5ru5idhba1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

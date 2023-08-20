@@ -25,8 +25,8 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => RegisterCubit(const RegisterInitialState(),
-            emailController, passwordController, _formKey),
+        create: (context) =>
+            RegisterCubit(const RegisterInitialState(), _formKey),
         child: _buildScaffold(context));
   }
 
@@ -219,7 +219,11 @@ class _RegisterViewState extends State<RegisterView> {
   ElevatedButton _registerButton(BuildContext context) {
     return ElevatedButton(
         onPressed: () {
-          context.read<RegisterCubit>().register();
+          context.read<RegisterCubit>().register(
+              nameController.text,
+              surNameController.text,
+              emailController.text,
+              passwordController.text);
         },
         child: Text(
           "Register",
