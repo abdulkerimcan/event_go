@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
+  
   final GlobalKey<FormState> formKey;
   bool _isLoading = false;
   bool _isFailed = false;
-  RegisterCubit(super.initialState, this.emailController, this.passwordController,
+  RegisterCubit(super.initialState,
       this.formKey);
 
   Future<void> _changeLoading() async {
@@ -17,7 +16,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(RegisterLoadingState(_isLoading));
   }
 
-  Future<void> register() async {
+  Future<void> register(String name, String surname, String email, String password) async {
     if (formKey.currentState != null && formKey.currentState!.validate()) {
       _isFailed = false;
 
