@@ -1,10 +1,9 @@
-import 'package:eventgo/features/register/cubit/login_cubit.dart';
-import 'package:eventgo/features/register/cubit/login_state.dart';
+import 'package:eventgo/features/register/cubit/register_cubit.dart';
+import 'package:eventgo/features/register/cubit/register_state.dart';
+import 'package:eventgo/product/widget/custom_clip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-
-import '../../../product/widget/custom_clip_path.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -25,9 +24,9 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit(const LoginInitialState(),
+      create: (context) => LoginCubit(const RegisterInitialState(),
           emailController, passwordController, _formKey),
-      child: BlocConsumer<LoginCubit, LoginState>(
+      child: BlocConsumer<LoginCubit, RegisterState>(
         listener: (context, state) {},
         builder: (context, state) {
           return _buildScaffold(context, state);
@@ -36,15 +35,15 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Scaffold _buildScaffold(BuildContext context, LoginState state) {
+  Scaffold _buildScaffold(BuildContext context, RegisterState state) {
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            ClipPath(
-              clipper: CustomClipPath(),
-              child: _titleContainer(context),
+            CustomClipPath(
+              title: 'EventGO',
+              context: context,
             ),
             Padding(
               padding: context.padding.normal,
@@ -78,10 +77,10 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     Padding(
                       padding: context.padding.onlyBottomLow,
-                      child: BlocConsumer<LoginCubit, LoginState>(
+                      child: BlocConsumer<LoginCubit, RegisterState>(
                         listener: (context, state) {},
                         builder: (context, state) {
-                          if (state is LoginLoadingState) {
+                          if (state is RegisterLoadingState) {
                             return const CircularProgressIndicator();
                           }
                           return _registerButton(context);
@@ -236,7 +235,7 @@ class _RegisterViewState extends State<RegisterView> {
   ElevatedButton _registerButton(BuildContext context) {
     return ElevatedButton(
         onPressed: () {
-          context.read<LoginCubit>().login();
+          context.read<LoginCubit>().register();
         },
         child: Text(
           "Register",
