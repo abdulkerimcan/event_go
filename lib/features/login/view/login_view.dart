@@ -1,3 +1,4 @@
+import 'package:eventgo/features/home/home.dart';
 import 'package:eventgo/features/login/cubit/login_cubit.dart';
 import 'package:eventgo/features/login/cubit/login_state.dart';
 import 'package:eventgo/product/widget/custom_container.dart';
@@ -58,9 +59,21 @@ class _LoginViewState extends State<LoginView> {
                     Padding(
                         padding: context.padding.onlyBottomLow,
                         child: BlocConsumer<LoginCubit, LoginState>(
-                          listener: (context, state) {},
+                          listener: (context, state) {
+                            if (state is LoginCompleteState) {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (contex) => const HomeView()));
+                            } else if (state is LoginFailState) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(state.message ?? "error occured"),
+                              ));
+                            }
+                          },
                           builder: (context, state) {
-                            if (state is LoginLoadingState) {
+                            if (context.watch<LoginCubit>().isLoading) {
                               return const CircularProgressIndicator();
                             }
                             return _loginButton(context);
@@ -161,7 +174,9 @@ class _LoginViewState extends State<LoginView> {
 
   ElevatedButton _loginButton(BuildContext context) {
     return ElevatedButton(
-        onPressed: () => context.read<LoginCubit>().login(),
+        onPressed: () => context
+            .read<LoginCubit>()
+            .login(_emailController.text, _passwordController.text),
         child: Text(
           "Login",
           style: Theme.of(context)
