@@ -1,3 +1,4 @@
+import 'package:eventgo/features/home/home.dart';
 import 'package:eventgo/features/register/cubit/register_cubit.dart';
 import 'package:eventgo/features/register/cubit/register_state.dart';
 import 'package:eventgo/product/widget/custom_clip.dart';
@@ -73,12 +74,20 @@ class _RegisterViewState extends State<RegisterView> {
                     Padding(
                       padding: context.padding.onlyBottomLow,
                       child: BlocConsumer<RegisterCubit, RegisterState>(
-                        listener: (context, state) {},
+                        listener: (context, state) {
+                          if (state is RegisterCompleteState) {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (contex) => const HomeView()));
+                          }
+                        },
                         builder: (context, state) {
                           if (state is RegisterLoadingState) {
                             return const CircularProgressIndicator();
+                          } else {
+                            return _registerButton(context);
                           }
-                          return _registerButton(context);
                         },
                       ),
                     ),

@@ -18,7 +18,8 @@ class RegisterCompleteState extends RegisterState {
 
 class RegisterValidateState extends RegisterState {
   final bool isValidate;
-  const RegisterValidateState(this.isValidate);
+  final String? message;
+  const RegisterValidateState({required this.isValidate, this.message});
 }
 
 class RegisterFailState extends RegisterState {
