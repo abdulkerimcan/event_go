@@ -22,5 +22,6 @@ class LoginValidateState extends LoginState {
 }
 
 class LoginFailState extends LoginState {
-  const LoginFailState();
+  final String? message;
+  const LoginFailState(this.message);
 }

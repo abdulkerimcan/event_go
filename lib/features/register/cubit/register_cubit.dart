@@ -10,7 +10,6 @@ class RegisterCubit extends Cubit<RegisterState> {
   bool _isLoading = false;
   bool _isFailed = false;
   final auth = FirebaseAuth.instance;
-
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   RegisterCubit(super.initialState, this.formKey);
