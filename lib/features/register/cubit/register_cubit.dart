@@ -39,18 +39,17 @@ class RegisterCubit extends Cubit<RegisterState> {
                   toFirestore: (UserModel usermodel, options) =>
                       user.toFirestore())
               .doc(userResult.user?.uid);
-          await docRef
-              .set(user)
-              .whenComplete(() => emit(const RegisterCompleteState()));
+          await docRef.set(user);
+          _changeLoading();
+          emit(const RegisterCompleteState());
         }
       } on FirebaseAuthException catch (e) {
         _isFailed = true;
-        emit(RegisterValidateState(isValidate: _isFailed, message: e.message));
+        emit(RegisterFailState(e.message));
       }
-      _changeLoading();
     } else {
       _isFailed = true;
-      emit(RegisterValidateState(isValidate: _isFailed));
+      emit(RegisterValidateState(_isFailed));
     }
   }
 }

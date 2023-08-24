@@ -1,4 +1,5 @@
 import 'package:eventgo/features/home/home.dart';
+import 'package:eventgo/features/login/view/login_view.dart';
 import 'package:eventgo/features/register/cubit/register_cubit.dart';
 import 'package:eventgo/features/register/cubit/register_state.dart';
 import 'package:eventgo/product/widget/custom_clip.dart';
@@ -80,14 +81,17 @@ class _RegisterViewState extends State<RegisterView> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (contex) => const HomeView()));
+                          } else if (state is RegisterFailState) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content:
+                                    Text(state.message ?? "Error occured")));
                           }
                         },
                         builder: (context, state) {
                           if (state is RegisterLoadingState) {
                             return const CircularProgressIndicator();
-                          } else {
-                            return _registerButton(context);
                           }
+                          return _registerButton(context);
                         },
                       ),
                     ),
@@ -196,7 +200,10 @@ class _RegisterViewState extends State<RegisterView> {
 
   TextButton _signInButton(BuildContext context) {
     return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (contex) => const LoginView()));
+      },
       child: Text(
         "Sign in",
         style: Theme.of(context)
