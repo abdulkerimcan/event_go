@@ -25,12 +25,12 @@ class LoginCubit extends Cubit<LoginState> {
       _changeLoading();
       try {
         await auth.signInWithEmailAndPassword(email: email, password: password);
+      _changeLoading();
         emit(const LoginCompleteState());
       } on FirebaseAuthException catch (e) {
         _isFailed = true;
         emit(LoginFailState(e.message));
       }
-      _changeLoading();
     } else {
       _isFailed = true;
       emit(LoginValidateState(_isFailed));

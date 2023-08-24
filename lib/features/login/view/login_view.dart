@@ -1,6 +1,7 @@
 import 'package:eventgo/features/home/home.dart';
 import 'package:eventgo/features/login/cubit/login_cubit.dart';
 import 'package:eventgo/features/login/cubit/login_state.dart';
+import 'package:eventgo/features/register/view/register_view.dart';
 import 'package:eventgo/product/widget/custom_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,7 +74,7 @@ class _LoginViewState extends State<LoginView> {
                             }
                           },
                           builder: (context, state) {
-                            if (context.watch<LoginCubit>().isLoading) {
+                            if (state is LoginLoadingState) {
                               return const CircularProgressIndicator();
                             }
                             return _loginButton(context);
@@ -143,7 +144,10 @@ class _LoginViewState extends State<LoginView> {
 
   TextButton _registerButton(BuildContext context) {
     return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (contex) => const RegisterView()));
+      },
       child: Text(
         "Register",
         style: Theme.of(context)
