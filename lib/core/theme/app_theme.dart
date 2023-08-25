@@ -6,6 +6,19 @@ class AppTheme {
   static ThemeData get lightTheme => ThemeData.light().copyWith(
       colorScheme: ColorScheme.fromSeed(seedColor: ColorConstants.primaryColor),
       useMaterial3: true,
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        
+          backgroundColor: ColorConstants.primaryColor),
+      bottomAppBarTheme: const BottomAppBarTheme(color: Colors.white),
+      tabBarTheme: const TabBarTheme(
+        indicatorSize: TabBarIndicatorSize.tab,
+        indicator: ShapeDecoration(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+            color: ColorConstants.primaryColor),
+        labelColor: Colors.white,
+        unselectedLabelColor: ColorConstants.primaryColor,
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
               minimumSize: const Size(double.infinity, 50),

@@ -1,15 +1,13 @@
 import 'package:eventgo/core/constants/color_constants.dart';
-import 'package:eventgo/features/home/view/home_view.dart';
-import 'package:eventgo/features/login/cubit/login_cubit.dart';
-import 'package:eventgo/features/login/cubit/login_state.dart';
-import 'package:eventgo/features/register/view/register_view.dart';
+import 'package:eventgo/features/auth/login/cubit/login_cubit.dart';
+import 'package:eventgo/features/auth/login/cubit/login_state.dart';
+import 'package:eventgo/features/auth/register/view/register_view.dart';
+import 'package:eventgo/features/tabs/home/view/home_view.dart';
+import 'package:eventgo/product/widget/custom_clip.dart';
 import 'package:eventgo/product/widget/custom_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
-
-import '../../../product/widget/custom_clip.dart';
-
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
 
