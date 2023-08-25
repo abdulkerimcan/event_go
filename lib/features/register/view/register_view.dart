@@ -1,4 +1,4 @@
-import 'package:eventgo/features/home/home.dart';
+import 'package:eventgo/features/home/view/home_view.dart';
 import 'package:eventgo/features/login/view/login_view.dart';
 import 'package:eventgo/features/register/cubit/register_cubit.dart';
 import 'package:eventgo/features/register/cubit/register_state.dart';
