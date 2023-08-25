@@ -1,7 +1,6 @@
 import 'package:eventgo/core/theme/app_theme.dart';
-import 'package:eventgo/features/home/view/home_view.dart';
-import 'package:eventgo/features/login/view/login_view.dart';
-import 'package:eventgo/features/register/view/register_view.dart';
+import 'package:eventgo/features/tabs/tabbar.dart';
+import 'package:eventgo/features/tabs/home/view/home_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +11,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: AppTheme.lightTheme,
-      home: const HomeView(),
+      home: const BottomTapBar(),
     );
   }
 }
