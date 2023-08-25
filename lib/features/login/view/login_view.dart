@@ -1,4 +1,5 @@
-import 'package:eventgo/features/home/home.dart';
+import 'package:eventgo/core/constants/color_constants.dart';
+import 'package:eventgo/features/home/view/home_view.dart';
 import 'package:eventgo/features/login/cubit/login_cubit.dart';
 import 'package:eventgo/features/login/cubit/login_state.dart';
 import 'package:eventgo/features/register/view/register_view.dart';
@@ -153,7 +154,7 @@ class _LoginViewState extends State<LoginView> {
         style: Theme.of(context)
             .textTheme
             .titleLarge
-            ?.copyWith(color: const Color(0xff5265FF)),
+            ?.copyWith(color: ColorConstants.primaryColor),
       ),
     );
   }
