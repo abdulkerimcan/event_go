@@ -1,8 +1,7 @@
-import 'package:eventgo/core/constants/color_constants.dart';
+
 import 'package:eventgo/features/tabs/home/view/home_view.dart';
-import 'package:flutter/gestures.dart';
+import 'package:eventgo/features/tabs/profile/view/profile_view.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomTapBar extends StatefulWidget {
   const BottomTapBar({Key? key}) : super(key: key);
@@ -76,7 +75,7 @@ class _BottomTapBarState extends State<BottomTapBar>
     return TabBarView(
         physics: const NeverScrollableScrollPhysics(),
         controller: _tabController,
-        children: const [HomeView(), HomeView(), HomeView(), HomeView()]);
+        children: const [HomeView(), HomeView(), HomeView(), ProfileView()]);
   }
 }
 

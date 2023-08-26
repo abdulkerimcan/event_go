@@ -5,10 +5,11 @@ import 'package:kartal/kartal.dart';
 class IconContainer extends StatelessWidget {
   final IconData iconData;
   final Function()? onPress;
+  final Color color;
   const IconContainer({
     super.key,
     required this.iconData,
-    required this.onPress,
+    required this.onPress, required this.color,
   });
 
   @override
@@ -18,10 +19,10 @@ class IconContainer extends StatelessWidget {
       height: context.sized.mediumValue * 1.5,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: ColorConstants.primaryColor.withOpacity(0.1)),
+          color: color.withOpacity(0.1)),
       child: IconButton(
         icon: Icon(iconData),
-        color: ColorConstants.primaryColor,
+        color: color,
         onPressed: onPress,
       ),
     );

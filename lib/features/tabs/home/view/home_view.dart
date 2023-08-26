@@ -212,7 +212,7 @@ class _HomeViewState extends State<HomeView> {
         ),
         Padding(
           padding: context.padding.onlyLeftLow,
-          child: IconContainer(iconData: Icons.filter_list, onPress: () {}),
+          child: IconContainer(iconData: Icons.filter_list, onPress: () {},color: ColorConstants.primaryColor ),
         )
       ],
     );
@@ -232,14 +232,14 @@ class _HomeViewState extends State<HomeView> {
           padding: context.padding.onlyRightNormal,
           child: IconContainer(
             iconData: FontAwesomeIcons.solidBell,
-            onPress: () {},
+            onPress: () {},color: ColorConstants.primaryColor 
           ),
         ),
         Padding(
           padding: context.padding.onlyRightNormal,
           child: IconContainer(
             iconData: FontAwesomeIcons.solidBookmark,
-            onPress: () {},
+            onPress: () {},color: ColorConstants.primaryColor 
           ),
         )
       ],
