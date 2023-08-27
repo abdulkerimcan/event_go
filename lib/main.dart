@@ -1,6 +1,5 @@
 import 'package:eventgo/core/theme/app_theme.dart';
-import 'package:eventgo/features/tabs/tabbar.dart';
-import 'package:eventgo/features/tabs/home/view/home_view.dart';
+import 'package:eventgo/features/auth/login/view/login_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: AppTheme.lightTheme,
-      home: const BottomTapBar(),
+      home: const LoginView(),
     );
   }
 }

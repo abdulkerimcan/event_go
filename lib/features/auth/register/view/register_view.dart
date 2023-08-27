@@ -1,7 +1,7 @@
 import 'package:eventgo/features/auth/login/view/login_view.dart';
 import 'package:eventgo/features/auth/register/cubit/register_cubit.dart';
 import 'package:eventgo/features/auth/register/cubit/register_state.dart';
-import 'package:eventgo/features/tabs/home/view/home_view.dart';
+import 'package:eventgo/features/tabs/tabbar.dart';
 import 'package:eventgo/product/widget/custom_clip.dart';
 import 'package:eventgo/product/widget/custom_container.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +80,7 @@ class _RegisterViewState extends State<RegisterView> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (contex) => const HomeView()));
+                                    builder: (contex) => const BottomTapBar()));
                           } else if (state is RegisterFailState) {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content:

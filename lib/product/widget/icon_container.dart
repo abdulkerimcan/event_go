@@ -1,4 +1,3 @@
-import 'package:eventgo/core/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
