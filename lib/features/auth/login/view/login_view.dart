@@ -2,7 +2,7 @@ import 'package:eventgo/core/constants/color_constants.dart';
 import 'package:eventgo/features/auth/login/cubit/login_cubit.dart';
 import 'package:eventgo/features/auth/login/cubit/login_state.dart';
 import 'package:eventgo/features/auth/register/view/register_view.dart';
-import 'package:eventgo/features/tabs/home/view/home_view.dart';
+import 'package:eventgo/features/tabs/tabbar.dart';
 import 'package:eventgo/product/widget/custom_clip.dart';
 import 'package:eventgo/product/widget/custom_container.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +64,7 @@ class _LoginViewState extends State<LoginView> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (contex) => const HomeView()));
+                                      builder: (contex) =>  BottomTapBar()));
                             } else if (state is LoginFailState) {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(

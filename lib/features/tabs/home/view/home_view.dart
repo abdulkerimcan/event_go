@@ -38,6 +38,7 @@ class _HomeViewState extends State<HomeView> {
               Padding(
                 padding: EdgeInsets.only(
                     left: context.sized.normalValue,
+                    right: context.sized.normalValue,
                     top: context.sized.lowValue),
                 child: _seeAllRow("Trends"),
               ),
@@ -46,12 +47,14 @@ class _HomeViewState extends State<HomeView> {
               Padding(
                   padding: EdgeInsets.only(
                       left: context.sized.normalValue,
+                      right: context.sized.normalValue,
                       top: context.sized.lowValue),
                   child: _seeAllRow("Nearby Your Location")),
               _trendsEvent(context),
               Padding(
                   padding: EdgeInsets.only(
                       left: context.sized.normalValue,
+                      right: context.sized.normalValue,
                       top: context.sized.lowValue),
                   child: _seeAllRow("New Events")),
               _trendsEvent(context)
@@ -212,7 +215,10 @@ class _HomeViewState extends State<HomeView> {
         ),
         Padding(
           padding: context.padding.onlyLeftLow,
-          child: IconContainer(iconData: Icons.filter_list, onPress: () {},color: ColorConstants.primaryColor ),
+          child: IconContainer(
+              iconData: Icons.filter_list,
+              onPress: () {},
+              color: ColorConstants.primaryColor),
         )
       ],
     );
@@ -231,16 +237,16 @@ class _HomeViewState extends State<HomeView> {
         Padding(
           padding: context.padding.onlyRightNormal,
           child: IconContainer(
-            iconData: FontAwesomeIcons.solidBell,
-            onPress: () {},color: ColorConstants.primaryColor 
-          ),
+              iconData: FontAwesomeIcons.solidBell,
+              onPress: () {},
+              color: ColorConstants.primaryColor),
         ),
         Padding(
           padding: context.padding.onlyRightNormal,
           child: IconContainer(
-            iconData: FontAwesomeIcons.solidBookmark,
-            onPress: () {},color: ColorConstants.primaryColor 
-          ),
+              iconData: FontAwesomeIcons.solidBookmark,
+              onPress: () {},
+              color: ColorConstants.primaryColor),
         )
       ],
       title: _buildTitle(context),
@@ -257,5 +263,3 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
-
-

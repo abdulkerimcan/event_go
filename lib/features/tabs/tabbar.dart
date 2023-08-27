@@ -47,7 +47,8 @@ class _BottomTapBarState extends State<BottomTapBar>
   }
 
   TabBar _myTabView() {
-    return TabBar(controller: _tabController, tabs: const [
+    return TabBar(
+      controller: _tabController, tabs: const [
       Tab(
         icon: Icon(Icons.home),
         text: "",
