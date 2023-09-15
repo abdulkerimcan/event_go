@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eventgo/core/enums/local_keys_enum.dart';
+import 'package:eventgo/core/init/cache/local_manager.dart';
 import 'package:eventgo/features/auth/login/cubit/login_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +26,13 @@ class LoginCubit extends Cubit<LoginState> {
     if (formKey.currentState != null && formKey.currentState!.validate()) {
       _changeLoading();
       try {
-        await auth.signInWithEmailAndPassword(email: email, password: password);
-      _changeLoading();
+        var user = await auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        _changeLoading();
+        LocalManager.instance
+            .setStringValue(PreferencesKeys.TOKEN, user.user?.uid ?? "");
+            
+
         emit(const LoginCompleteState());
       } on FirebaseAuthException catch (e) {
         _isFailed = true;

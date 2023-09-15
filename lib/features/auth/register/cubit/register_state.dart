@@ -8,8 +8,7 @@ class RegisterInitialState extends RegisterState {
   const RegisterInitialState();
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
 
 class RegisterLoadingState extends RegisterState {
@@ -18,8 +17,7 @@ class RegisterLoadingState extends RegisterState {
   const RegisterLoadingState(this.isLoading);
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [isLoading];
 }
 
 class RegisterCompleteState extends RegisterState {
@@ -32,14 +30,13 @@ class RegisterCompleteState extends RegisterState {
 class RegisterValidateState extends RegisterState {
   final bool isValidate;
   const RegisterValidateState(this.isValidate);
-
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [isValidate];
 }
 
 class RegisterFailState extends RegisterState {
   final String? message;
   const RegisterFailState(this.message);
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [message];
 }

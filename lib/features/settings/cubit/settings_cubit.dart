@@ -1,3 +1,4 @@
+import 'package:eventgo/core/init/cache/local_manager.dart';
 import 'package:eventgo/features/settings/cubit/settings_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,10 +16,11 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future<void> logout() async {
     try {
       _changeLoading();
-      emit(SettingsLoadingState());
+      emit(const SettingsLoadingState());
       await auth.signOut();
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
       _changeLoading();
+      LocalManager.instance.clearAll;
       emit(const SettingsCompleteState());
     } catch (e) {
       emit(SettingsFailedState(e.toString()));

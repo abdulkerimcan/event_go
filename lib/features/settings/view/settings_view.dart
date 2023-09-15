@@ -173,83 +173,6 @@ class _SettingsViewState extends State<SettingsView> with CustomSheetMixin {
     );
   }
 
-  BlocProvider _bottomSheetColumn(BuildContext context) {
-    return BlocProvider(
-      create: (context) => SettingsCubit(const SettingsInitialState()),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          BlocConsumer<SettingsCubit, SettingsState>(
-            listener: (context, state) {
-              if (state is SettingsCompleteState) {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginView(),
-                    ));
-              } else if (state is SettingsFailedState) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("state.message")));
-              }
-            },
-            builder: (context, state) {
-              if (state is SettingsLoadingState) {
-                return const CircularProgressIndicator();
-              }
-              return const Icon(
-                FontAwesomeIcons.arrowRightFromBracket,
-                color: ColorConstants.primaryColor,
-              );
-            },
-          ),
-          Text(
-            "Are you sure want to logout",
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: Colors.black,
-                ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    side: const BorderSide(color: ColorConstants.primaryColor),
-                    backgroundColor: Colors.white,
-                    minimumSize: Size(
-                        context.sized.width * 0.3, context.sized.mediumValue)),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(
-                  "Cancel",
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: ColorConstants.primaryColor,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    side: const BorderSide(color: ColorConstants.primaryColor),
-                    backgroundColor: Colors.white,
-                    minimumSize: Size(
-                        context.sized.width * 0.3, context.sized.mediumValue)),
-                onPressed: () {},
-                child: Text(
-                  "Yes, Logout",
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: ColorConstants.primaryColor,
-                      fontWeight: FontWeight.bold),
-                ),
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       leading: IconButton(
@@ -285,7 +208,7 @@ mixin CustomSheetMixin {
       builder: (context) {
         return BlocProvider(
           create: (context) => SettingsCubit(const SettingsInitialState()),
-          child: _CustomSheet(),
+          child: const _CustomSheet(),
         );
       },
     );

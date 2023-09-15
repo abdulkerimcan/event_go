@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eventgo/core/enums/local_keys_enum.dart';
+import 'package:eventgo/core/init/cache/local_manager.dart';
 import 'package:eventgo/features/auth/register/cubit/register_state.dart';
 import 'package:eventgo/product/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,9 +32,14 @@ class RegisterCubit extends Cubit<RegisterState> {
             email: email, password: password);
 
         if (userResult.user != null) {
+          var user = UserModel(
+              id: userResult.user?.uid ?? "",
+              name: name,
+              surname: surname,
+              email: email);
+          LocalManager.instance.setStringValue(PreferencesKeys.TOKEN, user.id ?? "");
           CollectionReference users =
               FirebaseFirestore.instance.collection('Users');
-          var user = UserModel(name: name, surname: surname, email: email);
           final docRef = users
               .withConverter(
                   fromFirestore: UserModel.fromFirestore,

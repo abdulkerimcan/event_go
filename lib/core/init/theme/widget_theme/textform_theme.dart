@@ -1,3 +1,4 @@
+import 'package:eventgo/core/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 
 class TextFormFieldTheme {
@@ -17,12 +18,13 @@ class TextFormFieldTheme {
         borderRadius: BorderRadius.all(Radius.circular(20))),
     enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: Colors.grey,
+          color: ColorConstants.primaryColor,
         ),
         borderRadius: BorderRadius.all(Radius.circular(20))),
     focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: Colors.black,
+          width: 2,
+          color: ColorConstants.primaryColor,
         ),
         borderRadius: BorderRadius.all(Radius.circular(20))),
   );

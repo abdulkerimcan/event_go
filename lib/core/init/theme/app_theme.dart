@@ -1,5 +1,5 @@
 import 'package:eventgo/core/constants/color_constants.dart';
-import 'package:eventgo/core/theme/widget_theme/textform_theme.dart';
+import 'package:eventgo/core/init/theme/widget_theme/textform_theme.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
